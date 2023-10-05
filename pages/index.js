@@ -8,7 +8,7 @@ export async function getServerSideProps(){
   //向json檔裡面請求資料
   const data = await res.json();
 
-  //回傳todos:data
+  //回傳todos的data
   return{
     props:{
       todos:data
@@ -39,10 +39,11 @@ export default function Home({todos}) {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
+  {/* === 是指false的意思 */}
     {todos?.length ===0?(
       <div>loading...</div>
     ):(
+      // map()第一个参数 function 以参数序列中的每一个元素调用 function 函数，返回包含每次 function 函数返回值的新列表。
       todos?.map(todo=>(
         <div key={todo.id}>
           <p>
@@ -78,7 +79,7 @@ export default function Home({todos}) {
             className={styles.card}
           >
             <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
+            <p>今天天氣下雨Discover and deploy boilerplate example Next.js projects.</p>
           </a>
 
           <a
