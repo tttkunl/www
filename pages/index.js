@@ -1,13 +1,57 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
+import { useEffect, useState } from 'react';
 
-export default function Home() {
+//宣告伺服器函數
+export async function getServerSideProps(){
+  const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+  //向json檔裡面請求資料
+  const data = await res.json();
+
+  //回傳todos:data
+  return{
+    props:{
+      todos:data
+    }
+  }
+}
+
+export default function Home({todos}) {
+    // const [todos,setTodo]= useState([]);
+
+    // useEffect(() => {
+    //   const fetchTodos = async () =>{
+    //     setTimeout(async()=>{
+    //     const res = await fetch('https://jsonplaceholder.typicode.com/todos');
+    //     const data = await res.json();
+    //     setTodo(data);
+    //   },3000);
+    //   } ; 
+      
+    //   fetchTodos();
+    // }, []);
+    
+
+
   return (
     <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+    {todos?.length ===0?(
+      <div>loading...</div>
+    ):(
+      todos?.map(todo=>(
+        <div key={todo.id}>
+          <p>
+            {todo.id}:{todo.title}
+          </p>
+        </div>
+      ))
+    )}
+
 
       <main>
         <h1 className={styles.title}>
